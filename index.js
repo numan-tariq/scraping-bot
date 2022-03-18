@@ -5,9 +5,6 @@ require('dotenv').config()
 
 let currentPostURL = ""
 
-
-// bot.sendMessage(-1001649307802, "Hy");
-
 async function getData(el, queryString, defaultValue = null, isLink = false) {
   try {
     if (isLink) {
@@ -20,16 +17,14 @@ async function getData(el, queryString, defaultValue = null, isLink = false) {
   }
 }
 
-
 cron.schedule('*/20 * * * * *', () => {
   (async () => {
     try {
       // Setup BOT
       const bot = new TelegramBot(process.env.TOKEN, {
-        polling: true,
+        polling: false,
       });
 
-      // 
       const browser = await puppeteer.launch();
       const page = await browser.newPage();
 
@@ -76,14 +71,11 @@ cron.schedule('*/20 * * * * *', () => {
           bot.sendMessage(-1001649307802, `NEW POST\n\n${newPost.heading}\n\n${newPost.articleLink}`);
         }
       }
-
-
     } catch (err) {
       console.log("🚀 ~ file: index.js ~ line 47 ~ err", err)
     }
   })();
 });
-
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
