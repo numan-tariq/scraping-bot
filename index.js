@@ -1,10 +1,10 @@
 const puppeteer = require('puppeteer');
 const TelegramBot = require('node-telegram-bot-api');
 var cron = require('node-cron');
+require('dotenv').config()
 
 let currentPostURL = ""
 
-const TOKEN = "5298902875:AAH7RaGluYXceXZpwSnOgeiQuOZjXkJG9Cw";
 
 // bot.sendMessage(-1001649307802, "Hy");
 
@@ -25,7 +25,7 @@ cron.schedule('*/20 * * * * *', () => {
   (async () => {
     try {
       // Setup BOT
-      const bot = new TelegramBot(TOKEN, {
+      const bot = new TelegramBot(process.env.TOKEN, {
         polling: true,
       });
 
